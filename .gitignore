@@ -1,0 +1,35 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Personal account profile, chat history & generated account data
+context/strategy_profile.json
+docs/chat.md
+data/*.json
+!data/.gitkeep
+
+# Capture artifacts (keep directory structure only)
+captures/calibration_preview.png
+captures/calibration/
+captures/latest/*
+!captures/latest/.gitkeep
+!captures/latest/resonators/
+!captures/latest/backpack_echoes/
+captures/latest/resonators/*
+!captures/latest/resonators/.gitkeep
+captures/latest/backpack_echoes/*
+!captures/latest/backpack_echoes/.gitkeep

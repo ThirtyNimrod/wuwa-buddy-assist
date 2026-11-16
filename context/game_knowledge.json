@@ -1,0 +1,106 @@
+{
+  "echo_rules": {
+    "max_equipped_slots": 5,
+    "max_total_cost": 12,
+    "standard_cost_setup": [4, 3, 3, 1, 1],
+    "max_echo_level": 25,
+    "max_substats": 5,
+    "crit_value_formula": "(CRIT_RATE * 2) + CRIT_DMG",
+    "cv_badge_tiers": {
+      "gold_min": 35.0,
+      "purple_min": 25.0,
+      "usable_min": 20.0
+    },
+    "fixed_secondary_main_stat_by_cost": {
+      "4": "ATK_FLAT",
+      "3": "ATK_FLAT",
+      "1": "HP_FLAT"
+    },
+    "variable_main_stats_by_cost": {
+      "4": ["CRIT_RATE", "CRIT_DMG", "ATK_PCT", "HP_PCT", "DEF_PCT", "HEALING_BONUS"],
+      "3": ["HAVOC_DMG_PCT", "AERO_DMG_PCT", "SPECTRO_DMG_PCT", "FUSION_DMG_PCT", "GLACIO_DMG_PCT", "ELECTRO_DMG_PCT", "ENERGY_REGEN", "ATK_PCT", "HP_PCT", "DEF_PCT"],
+      "1": ["ATK_PCT", "HP_PCT", "DEF_PCT"]
+    }
+  },
+  "sonata_sets": {
+    "Sun-sinking Eclipse": {
+      "2pc": "Havoc DMG +10%",
+      "5pc": "Havoc DMG +7.5% after Basic or Heavy Attack (stacks up to 4 times for +30%)"
+    },
+    "Sierra Gale": {
+      "2pc": "Aero DMG +10%",
+      "5pc": "Aero DMG +30% for 15s upon using Intro Skill"
+    },
+    "Windward Pilgrimage": {
+      "2pc": "Aero DMG +10%",
+      "5pc": "Aero Erosion & Aero DMG team synergy bonus"
+    },
+    "Rejuvenating Glow": {
+      "2pc": "Healing Bonus +10%",
+      "5pc": "Increases ATK of all party members by 15% for 30s upon healing allies"
+    },
+    "Moonlit Clouds": {
+      "2pc": "Energy Regen +10%",
+      "5pc": "After using Outro Skill, increases next Resonator's ATK by 22.5% for 15s"
+    },
+    "Molten Rift": {
+      "2pc": "Fusion DMG +10%",
+      "5pc": "Fusion DMG +30% for 15s after using Resonance Skill"
+    },
+    "Void Thunder": {
+      "2pc": "Electro DMG +10%",
+      "5pc": "Electro DMG +15% on Heavy Attack / Resonance Skill (stacks up to 2)"
+    },
+    "Freezing Frost": {
+      "2pc": "Glacio DMG +10%",
+      "5pc": "Glacio DMG +10% on Basic or Heavy Attack (stacks up to 3)"
+    },
+    "Celestial Light": {
+      "2pc": "Spectro DMG +10%",
+      "5pc": "Spectro DMG +30% for 15s upon using Intro Skill"
+    },
+    "Lingering Tunes": {
+      "2pc": "ATK +10%",
+      "5pc": "On-field ATK +5% every 1.5s up to 4 stacks; Outro DMG +60%"
+    },
+    "Rite of Gilded Revelation": {
+      "2pc": "Spectro DMG +10%",
+      "5pc": "Dealing Basic Attack DMG increases Spectro DMG (stackable); at max stacks, Resonance Liberation increases Basic Attack DMG"
+    },
+    "Shadow of Shattered Dreams": {
+      "1pc": "Inflicting Hack - Shifting on the target increases Basic Attack and Heavy Attack DMG"
+    }
+  },
+  "stat_key_aliases": {
+    "crit. rate": "CRIT_RATE",
+    "crit rate": "CRIT_RATE",
+    "crit. dmg": "CRIT_DMG",
+    "crit dmg": "CRIT_DMG",
+    "energy regen": "ENERGY_REGEN",
+    "healing bonus": "HEALING_BONUS",
+    "havoc dmg bonus": "HAVOC_DMG_PCT",
+    "aero dmg bonus": "AERO_DMG_PCT",
+    "spectro dmg bonus": "SPECTRO_DMG_PCT",
+    "fusion dmg bonus": "FUSION_DMG_PCT",
+    "glacio dmg bonus": "GLACIO_DMG_PCT",
+    "electro dmg bonus": "ELECTRO_DMG_PCT",
+    "basic attack dmg bonus": "BASIC_ATTACK_DMG",
+    "heavy attack dmg bonus": "HEAVY_ATTACK_DMG",
+    "resonance skill dmg bonus": "RESONANCE_SKILL_DMG",
+    "resonance liberation dmg bonus": "RESONANCE_LIBERATION_DMG"
+  },
+  "waveplate_activities": {
+    "forgery_challenge": {
+      "cost": 40,
+      "purpose": "Weapon & Forte Skill upgrade materials"
+    },
+    "tacet_field": {
+      "cost": 60,
+      "purpose": "Echoes & Sealed Tubes / Tuners"
+    },
+    "weekly_boss": {
+      "cost": 60,
+      "purpose": "Weekly Forte Lv. 6->10 boss drops (e.g., Dreamless)"
+    }
+  }
+}

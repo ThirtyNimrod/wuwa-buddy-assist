@@ -1,0 +1,330 @@
+{
+  "schema_version": "1.0",
+  "aspect_ratio": "16:9",
+  "reference_resolutions": ["1600x900", "1920x1080", "2560x1440"],
+  "notes": "Menu-scoped normalized 0.0-1.0 coordinates for Wuthering Waves 16:9 UI (verified on 1600x900 captures).",
+  "click_targets": {
+    "terminal_resonators": {
+      "x": 0.496,
+      "y": 0.455,
+      "label": "Terminal: Resonators",
+      "menus": ["terminal"]
+    },
+    "terminal_team": {
+      "x": 0.622,
+      "y": 0.455,
+      "label": "Terminal: Team",
+      "menus": ["terminal"]
+    },
+    "terminal_databank": {
+      "x": 0.746,
+      "y": 0.455,
+      "label": "Terminal: Data Bank",
+      "menus": ["terminal"]
+    },
+    "terminal_next_page": {
+      "x": 0.938,
+      "y": 0.482,
+      "label": "Terminal: Next Page (>>)",
+      "menus": ["terminal"]
+    },
+    "terminal_close": {
+      "x": 0.957,
+      "y": 0.056,
+      "label": "Terminal: Close (X)",
+      "menus": ["terminal"]
+    },
+    "tab_overview": {
+      "x": 0.039,
+      "y": 0.177,
+      "label": "Tab: Overview",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "tab_weapon": {
+      "x": 0.039,
+      "y": 0.300,
+      "label": "Tab: Weapon",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "tab_echoes": {
+      "x": 0.039,
+      "y": 0.427,
+      "label": "Tab: Echoes",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "tab_forte": {
+      "x": 0.039,
+      "y": 0.556,
+      "label": "Tab: Forte",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "tab_sequences": {
+      "x": 0.039,
+      "y": 0.676,
+      "label": "Tab: Sequences",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_1": {
+      "x": 0.945,
+      "y": 0.200,
+      "label": "Roster Slot 1",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_2": {
+      "x": 0.945,
+      "y": 0.320,
+      "label": "Roster Slot 2",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_3": {
+      "x": 0.945,
+      "y": 0.440,
+      "label": "Roster Slot 3",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_4": {
+      "x": 0.945,
+      "y": 0.562,
+      "label": "Roster Slot 4",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_5": {
+      "x": 0.945,
+      "y": 0.682,
+      "label": "Roster Slot 5",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_6": {
+      "x": 0.945,
+      "y": 0.802,
+      "label": "Roster Slot 6",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_7": {
+      "x": 0.945,
+      "y": 0.825,
+      "label": "Roster Slot 7 (Scroll)",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_8": {
+      "x": 0.945,
+      "y": 0.825,
+      "label": "Roster Slot 8 (Scroll)",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "roster_slot_9": {
+      "x": 0.945,
+      "y": 0.825,
+      "label": "Roster Slot 9 (Scroll)",
+      "menus": ["overview", "weapon", "forte", "echo_wheel"]
+    },
+    "echo_wheel_slot_1": {
+      "x": 0.770,
+      "y": 0.262,
+      "label": "Echo Wheel Slot 1 (Opens Echo Menu)",
+      "menus": ["echo_wheel"]
+    },
+    "echo_wheel_slot_2": {
+      "x": 0.805,
+      "y": 0.469,
+      "label": "Echo Wheel Slot 2",
+      "menus": ["echo_wheel"]
+    },
+    "echo_wheel_slot_3": {
+      "x": 0.802,
+      "y": 0.601,
+      "label": "Echo Wheel Slot 3",
+      "menus": ["echo_wheel"]
+    },
+    "echo_wheel_slot_4": {
+      "x": 0.784,
+      "y": 0.727,
+      "label": "Echo Wheel Slot 4",
+      "menus": ["echo_wheel"]
+    },
+    "echo_wheel_slot_5": {
+      "x": 0.737,
+      "y": 0.838,
+      "label": "Echo Wheel Slot 5",
+      "menus": ["echo_wheel"]
+    },
+    "echo_switch_btn": {
+      "x": 0.145,
+      "y": 0.928,
+      "label": "Echo Wheel: Switch Button",
+      "menus": ["echo_wheel"]
+    },
+    "echo_slot_1": {
+      "x": 0.055,
+      "y": 0.232,
+      "label": "Equipped Echo Slot 1",
+      "menus": ["echo_customization"]
+    },
+    "echo_slot_2": {
+      "x": 0.055,
+      "y": 0.384,
+      "label": "Equipped Echo Slot 2",
+      "menus": ["echo_customization"]
+    },
+    "echo_slot_3": {
+      "x": 0.054,
+      "y": 0.481,
+      "label": "Equipped Echo Slot 3",
+      "menus": ["echo_customization"]
+    },
+    "echo_slot_4": {
+      "x": 0.054,
+      "y": 0.586,
+      "label": "Equipped Echo Slot 4",
+      "menus": ["echo_customization"]
+    },
+    "echo_slot_5": {
+      "x": 0.055,
+      "y": 0.689,
+      "label": "Equipped Echo Slot 5",
+      "menus": ["echo_customization"]
+    },
+    "echo_show_unequipped_toggle": {
+      "x": 0.211,
+      "y": 0.916,
+      "label": "Show Unequipped Filter",
+      "menus": ["echo_customization"]
+    },
+    "echo_detail_close": {
+      "x": 0.941,
+      "y": 0.058,
+      "label": "Close Echo Customization (X)",
+      "menus": ["echo_customization"]
+    },
+    "backpack_tab_echoes": {
+      "x": 0.039,
+      "y": 0.300,
+      "label": "Backpack Tab: Echoes",
+      "menus": ["backpack"]
+    }
+  },
+  "echo_customization_grid": {
+    "grid_start_x": 0.141,
+    "grid_start_y": 0.215,
+    "step_x": 0.070,
+    "step_y": 0.143,
+    "cols": 3,
+    "visible_rows": 5,
+    "menus": ["echo_customization"]
+  },
+  "backpack_grid": {
+    "grid_start_x": 0.129,
+    "grid_start_y": 0.214,
+    "step_x": 0.0925,
+    "step_y": 0.200,
+    "cols": 6,
+    "visible_rows": 4,
+    "menus": ["backpack"]
+  },
+  "crop_zones": {
+    "resonator_header": {
+      "x1": 0.095,
+      "y1": 0.130,
+      "x2": 0.305,
+      "y2": 0.315,
+      "label": "Resonator Header (Name / Level / Element)",
+      "menus": ["overview"]
+    },
+    "resonator_stats_panel": {
+      "x1": 0.095,
+      "y1": 0.315,
+      "x2": 0.305,
+      "y2": 0.575,
+      "label": "Resonator Overview Stats",
+      "menus": ["overview"]
+    },
+    "weapon_detail_card": {
+      "x1": 0.095,
+      "y1": 0.130,
+      "x2": 0.305,
+      "y2": 0.850,
+      "label": "Weapon Detail Card",
+      "menus": ["weapon"]
+    },
+    "forte_circuit_tree": {
+      "x1": 0.180,
+      "y1": 0.120,
+      "x2": 0.840,
+      "y2": 0.880,
+      "label": "Forte Circuit Skill Tree",
+      "menus": ["forte"]
+    },
+    "echo_wheel_stats_panel": {
+      "x1": 0.095,
+      "y1": 0.125,
+      "x2": 0.305,
+      "y2": 0.875,
+      "label": "Echo Wheel Total Stats & Sonata",
+      "menus": ["echo_wheel"]
+    },
+    "echo_zone1_header": {
+      "x1": 0.775,
+      "y1": 0.130,
+      "x2": 0.975,
+      "y2": 0.205,
+      "label": "Echo Zone 1: Name / Cost / +Level",
+      "menus": ["echo_customization"]
+    },
+    "echo_zone2_main_stats": {
+      "x1": 0.775,
+      "y1": 0.210,
+      "x2": 0.975,
+      "y2": 0.280,
+      "label": "Echo Zone 2: Variable & Fixed Main Stat",
+      "menus": ["echo_customization"]
+    },
+    "echo_zone3_substats": {
+      "x1": 0.775,
+      "y1": 0.282,
+      "x2": 0.975,
+      "y2": 0.445,
+      "label": "Echo Zone 3: 5 Tuned Substats",
+      "menus": ["echo_customization"]
+    },
+    "echo_zone4_equipped_badge": {
+      "x1": 0.775,
+      "y1": 0.695,
+      "x2": 0.975,
+      "y2": 0.900,
+      "label": "Echo Zone 4: Sonata & Equipped By",
+      "menus": ["echo_customization"]
+    },
+    "backpack_echo_header": {
+      "x1": 0.680,
+      "y1": 0.110,
+      "x2": 0.965,
+      "y2": 0.280,
+      "label": "Bag Zone 1: Name / Cost / +Level",
+      "menus": ["backpack"]
+    },
+    "backpack_echo_main_stats": {
+      "x1": 0.680,
+      "y1": 0.415,
+      "x2": 0.975,
+      "y2": 0.505,
+      "label": "Bag Zone 2: Variable & Fixed Main Stat",
+      "menus": ["backpack"]
+    },
+    "backpack_echo_substats": {
+      "x1": 0.680,
+      "y1": 0.505,
+      "x2": 0.975,
+      "y2": 0.755,
+      "label": "Bag Zone 3: 5 Tuned Substats",
+      "menus": ["backpack"]
+    },
+    "backpack_echo_equipped_badge": {
+      "x1": 0.680,
+      "y1": 0.800,
+      "x2": 0.975,
+      "y2": 0.875,
+      "label": "Bag Zone 4: Equipped Owner Badge",
+      "menus": ["backpack"]
+    }
+  }
+}

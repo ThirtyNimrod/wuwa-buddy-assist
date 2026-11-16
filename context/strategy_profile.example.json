@@ -1,0 +1,113 @@
+{
+  "account": {
+    "player_name": "Player",
+    "uid": "000000000",
+    "union_level": 60,
+    "sol3_phase": 7,
+    "resonator_level_cap": 90,
+    "forte_skill_cap": 10,
+    "forte_max_cap": 10,
+    "story_progression": "Current",
+    "daily_waveplates": 240
+  },
+  "known_5_star_roster_whitelist": [
+    "Rover (Havoc)",
+    "Rover (Aero)",
+    "Rover (Spectro)",
+    "Cartethyia",
+    "Jianxin",
+    "Encore",
+    "Calcharo"
+  ],
+  "known_5_star_weapons": [],
+  "playstyle_and_comfort_rules": {
+    "disliked_archetypes": [
+      "Dual-selfish on-field comps with field-time bottlenecks"
+    ],
+    "preferred_primary_team": {
+      "name": "Primary Core",
+      "members": [
+        {
+          "name": "Cartethyia",
+          "role": "Main DPS"
+        },
+        {
+          "name": "Rover (Havoc)",
+          "role": "Sub-DPS Burst"
+        },
+        {
+          "name": "Jianxin",
+          "role": "Sustain & Outro Buffer"
+        }
+      ]
+    }
+  },
+  "character_targets": {
+    "Rover (Havoc)": {
+      "role": "Sub-DPS Burst",
+      "target_sonata_set": "Sun-sinking Eclipse",
+      "forbidden_sonata_sets": ["Windward Pilgrimage"],
+      "cost_pattern": [4, 3, 3, 1, 1],
+      "preferred_4_cost_echoes": ["Dreamless"],
+      "preferred_3_cost_echoes": ["Tambourinist", "Roseshroom", "Havoc Dreadmane"],
+      "preferred_main_stats_by_cost": {
+        "4": ["CRIT_RATE", "CRIT_DMG"],
+        "3": ["HAVOC_DMG_PCT", "ATK_PCT", "ENERGY_REGEN"],
+        "1": ["ATK_PCT"]
+      },
+      "min_energy_regen": 115.0,
+      "target_energy_regen_range": [115.0, 120.0],
+      "priority_substats": ["CRIT_RATE", "CRIT_DMG", "ENERGY_REGEN", "ATK_PCT", "RESONANCE_LIBERATION_DMG"],
+      "forte_roadmap": [
+        {
+          "step": 1,
+          "nodes": ["resonance_liberation", "forte_circuit"],
+          "target_level": 6,
+          "description": "Resonance Liberation & Forte Circuit Lv. 5 -> 6"
+        },
+        {
+          "step": 2,
+          "nodes": ["inherent_skill_1"],
+          "target_level": 1,
+          "description": "Unlock Inherent Skill 1 (Metamorphosis)"
+        },
+        {
+          "step": 3,
+          "nodes": ["resonance_liberation", "forte_circuit"],
+          "target_level": 8,
+          "description": "Resonance Liberation & Forte Circuit Lv. 6 -> 8"
+        }
+      ]
+    },
+    "Cartethyia": {
+      "role": "Main DPS",
+      "target_sonata_set": "Sun-sinking Eclipse",
+      "acceptable_sonata_sets": ["Sun-sinking Eclipse", "Sierra Gale"],
+      "cost_pattern": [4, 3, 3, 1, 1],
+      "preferred_4_cost_echoes": ["Dreamless", "Crownless"],
+      "preferred_main_stats_by_cost": {
+        "4": ["CRIT_RATE", "CRIT_DMG"],
+        "3": ["HAVOC_DMG_PCT", "AERO_DMG_PCT", "ATK_PCT"],
+        "1": ["ATK_PCT"]
+      },
+      "min_energy_regen": 110.0,
+      "priority_substats": ["CRIT_RATE", "CRIT_DMG", "ATK_PCT", "BASIC_ATTACK_DMG", "ENERGY_REGEN"],
+      "forte_roadmap": []
+    },
+    "Jianxin": {
+      "role": "Sustain & Outro Buffer",
+      "target_sonata_set": "Rejuvenating Glow",
+      "cost_pattern": [4, 3, 3, 1, 1],
+      "preferred_4_cost_echoes": ["Bell-Borne Geochelone"],
+      "preferred_main_stats_by_cost": {
+        "4": ["HEALING_BONUS", "ATK_PCT", "CRIT_RATE"],
+        "3": ["ENERGY_REGEN", "ATK_PCT", "AERO_DMG_PCT"],
+        "1": ["ATK_PCT"]
+      },
+      "min_energy_regen": 140.0,
+      "target_energy_regen_range": [140.0, 165.0],
+      "priority_substats": ["ENERGY_REGEN", "ATK_PCT", "CRIT_RATE", "CRIT_DMG"],
+      "forte_roadmap": []
+    }
+  }
+}

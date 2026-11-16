@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wuwa-buddy-assist // Strategist Dashboard</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --surface: #121826;
+      --surface-2: #192234;
+      --surface-3: #222e46;
+      --border: #2a3752;
+      --text: #e6edf7;
+      --muted: #93a4bf;
+      --accent: #4cc9f0;
+      --accent-2: #7c5cff;
+      --gold: #f5b942;
+      --gold-bg: rgba(245, 185, 66, 0.14);
+      --purple: #b77cff;
+      --purple-bg: rgba(183, 124, 255, 0.14);
+      --red: #ff5c7a;
+      --red-bg: rgba(255, 92, 122, 0.14);
+      --green: #38d399;
+      --green-bg: rgba(56, 211, 153, 0.14);
+      --amber: #f59e0b;
+      --amber-bg: rgba(245, 158, 11, 0.14);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: radial-gradient(circle at top right, #162038 0%, var(--bg) 52%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 20px 24px 48px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .pill.accent { border-color: rgba(76, 201, 240, 0.45); color: var(--accent); background: rgba(76, 201, 240, 0.1); }
+    .pill.gold { border-color: rgba(245, 185, 66, 0.5); color: var(--gold); background: var(--gold-bg); }
+    .pill.purple { border-color: rgba(183, 124, 255, 0.5); color: var(--purple); background: var(--purple-bg); }
+    .pill.red { border-color: rgba(255, 92, 122, 0.5); color: var(--red); background: var(--red-bg); }
+    .pill.green { border-color: rgba(56, 211, 153, 0.5); color: var(--green); background: var(--green-bg); }
+    .pill.amber { border-color: rgba(245, 158, 11, 0.5); color: var(--amber); background: var(--amber-bg); }
+
+    button {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+
+    button:hover {
+      background: var(--surface-3);
+      border-color: var(--accent);
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #2b6cb0, #5b45d6);
+      border-color: transparent;
+    }
+
+    button.primary:hover {
+      filter: brightness(1.1);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .tab-btn.active {
+      background: var(--surface-2);
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(76, 201, 240, 0.25);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 18px 0 12px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card.primary-core {
+      border-color: rgba(76, 201, 240, 0.45);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .char-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .char-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .char-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .stat-box {
+      background: var(--surface-2);
+      border: 1px solid rgba(42, 55, 82, 0.7);
+      border-radius: 8px;
+      padding: 7px 10px;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .stat-val {
+      font-size: 0.94rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .forte-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .forte-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 44px;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .progress-track {
+      height: 7px;
+      border-radius: 999px;
+      background: var(--surface-3);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+    }
+
+    .next-node-banner {
+      background: rgba(124, 92, 255, 0.14);
+      border: 1px solid rgba(124, 92, 255, 0.4);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      color: #d7cbff;
+    }
+
+    .echo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .echo-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+    }
+
+    .echo-item.wrong-set {
+      border-color: rgba(255, 92, 122, 0.65);
+      background: rgba(255, 92, 122, 0.08);
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    select, input[type="number"] {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+    }
+
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .substat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .chip {
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.74rem;
+    }
+
+    .strategy-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 960px) {
+      .strategy-layout { grid-template-columns: 1fr; }
+    }
+
+    .task-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .task-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .task-btn.active {
+      color: var(--text);
+      border-color: var(--green);
+      background: var(--green-bg);
+    }
+
+    .alert-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      font-size: 0.84rem;
+      margin-bottom: 8px;
+    }
+
+    .alert-item.critical, .alert-item.high {
+      border-color: rgba(255, 92, 122, 0.55);
+      background: rgba(255, 92, 122, 0.08);
+    }
+
+    .alert-item.medium {
+      border-color: rgba(245, 158, 11, 0.55);
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .error-banner {
+      display: none;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 92, 122, 0.6);
+      background: rgba(255, 92, 122, 0.12);
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <h1>wuwa-buddy-assist <span class="pill accent" id="ulBadge">UL --</span></h1>
+        <p id="subHeader">Loading roster, echo bag, and strategist recommendations...</p>
+      </div>
+      <div class="meta-pills">
+        <span class="pill red" id="alertCountPill">0 Alerts</span>
+        <span class="pill green" id="swapCountPill">0 Upgrades</span>
+        <button id="refreshBtn" type="button">Reload JSON</button>
+        <button id="copyChatBtn" class="primary" type="button">Copy Context for Chat</button>
+      </div>
+    </header>
+
+    <div id="errorBanner" class="error-banner"></div>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="tab-roster" type="button">Tab 1 — Active Team &amp; Roster Cards</button>
+      <button class="tab-btn" data-tab="tab-bag" type="button">Tab 2 — Echo Bag Explorer &amp; Swap Matrix</button>
+      <button class="tab-btn" data-tab="tab-strategy" type="button">Tab 3 — Buddy Strategy &amp; Task Selector</button>
+    </nav>
+
+    <!-- TAB 1: ACTIVE TEAM & ROSTER -->
+    <section id="tab-roster" class="tab-panel active">
+      <div class="section-title">
+        <span>Active Core Team (Option 2 Core)</span>
+        <span class="pill accent">Cartethyia · Rover (Havoc) · Jianxin</span>
+      </div>
+      <div id="activeTeamGrid" class="card-grid"></div>
+
+      <div class="section-title">
+        <span>Benched 5-Star Roster</span>
+        <span class="pill">Available for Endgame Team 2</span>
+      </div>
+      <div id="benchedGrid" class="card-grid"></div>
+    </section>
+
+    <!-- TAB 2: ECHO BAG EXPLORER -->
+    <section id="tab-bag" class="tab-panel">
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label for="filterSonata">Sonata Set</label>
+          <select id="filterSonata">
+            <option value="">All Sonata Sets</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filterCost">Cost</label>
+          <select id="filterCost">
+            <option value="">All Costs (4 / 3 / 1)</option>
+            <option value="4">4-Cost</option>
+            <option value="3">3-Cost</option>
+            <option value="1">1-Cost</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filterMainStat">Main Stat</label>
+          <select id="filterMainStat">
+            <option value="">All Main Stats</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filterMinCv">Min CV</label>
+          <input id="filterMinCv" type="number" min="0" max="60" step="1" value="0" style="width: 86px;" />
+        </div>
+        <div class="filter-group">
+          <label style="display:flex; align-items:center; gap:6px; color: var(--text); padding-top: 6px;">
+            <input id="filterOnlyUpgrades" type="checkbox" /> Only Show Upgrades
+          </label>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Echo</th>
+              <th>Sonata Set</th>
+              <th>Cost / Lv</th>
+              <th>Main Stat</th>
+              <th>Substats</th>
+              <th>CV</th>
+              <th>Status / Swap Recommendation</th>
+            </tr>
+          </thead>
+          <tbody id="bagTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 3: BUDDY STRATEGY -->
+    <section id="tab-strategy" class="tab-panel">
+      <div class="task-selector">
+        <button class="task-btn active" data-strategy="waveplates" type="button">Daily 240 Waveplate Plan</button>
+        <button class="task-btn" data-strategy="cleanup" type="button">Echo Bag Cleanup</button>
+        <button class="task-btn" data-strategy="team2" type="button">Endgame Team 2 Builder (ToA / Endstate Matrix)</button>
+      </div>
+
+      <div class="strategy-layout">
+        <div class="card">
+          <div id="strategyTaskContent"></div>
+        </div>
+        <div class="card">
+          <h3 style="margin:0;">Active Build Alerts &amp; Swap Queue</h3>
+          <div id="alertsList"></div>
+          <h4 style="margin:8px 0 4px;">Top Backpack Swaps</h4>
+          <div id="swapsQueue"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const state = {
+      roster: null,
+      echoBag: null,
+      recommendations: null,
+      profile: null,
+      strategyView: "waveplates"
+    };
+
+    function escapeHtml(value) {
+      if (value === null || value === undefined) return "";
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function formatStatName(stat) {
+      const labels = {
+        CRIT_RATE: "Crit Rate",
+        CRIT_DMG: "Crit DMG",
+        ATK_PCT: "ATK%",
+        ATK_FLAT: "ATK",
+        HP_PCT: "HP%",
+        HP_FLAT: "HP",
+        DEF_PCT: "DEF%",
+        DEF_FLAT: "DEF",
+        ENERGY_REGEN: "Energy Regen",
+        HEALING_BONUS: "Healing Bonus",
+        HAVOC_DMG_PCT: "Havoc DMG%",
+        AERO_DMG_PCT: "Aero DMG%",
+        SPECTRO_DMG_PCT: "Spectro DMG%",
+        FUSION_DMG_PCT: "Fusion DMG%",
+        GLACIO_DMG_PCT: "Glacio DMG%",
+        ELECTRO_DMG_PCT: "Electro DMG%",
+        BASIC_ATTACK_DMG: "Basic DMG%",
+        HEAVY_ATTACK_DMG: "Heavy DMG%",
+        RESONANCE_SKILL_DMG: "Skill DMG%",
+        RESONANCE_LIBERATION_DMG: "Liberation DMG%"
+      };
+      return labels[stat] || stat;
+    }
+
+    function formatStatValue(stat, val) {
+      const flat = stat.endsWith("_FLAT");
+      return flat ? `${Math.round(val)}` : `${Number(val).toFixed(1)}%`;
+    }
+
+    function cvBadgeClass(cv, wrongSet = false) {
+      if (wrongSet || cv < 20) return "red";
+      if (cv > 35) return "gold";
+      if (cv >= 25) return "purple";
+      return "accent";
+    }
+
+    async function fetchJson(path) {
+      const res = await fetch(`${path}?t=${Date.now()}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${path}`);
+      return res.json();
+    }
+
+    async function loadAllData() {
+      const errBanner = document.getElementById("errorBanner");
+      errBanner.style.display = "none";
+      try {
+        const [roster, echoBag, recommendations, profile] = await Promise.all([
+          fetchJson("/data/roster.json"),
+          fetchJson("/data/echo_bag.json"),
+          fetchJson("/data/recommendations.json"),
+          fetchJson("/context/strategy_profile.json")
+        ]);
+        state.roster = roster;
+        state.echoBag = echoBag;
+        state.recommendations = recommendations;
+        state.profile = profile;
+        renderAll();
+      } catch (err) {
+        errBanner.style.display = "block";
+        errBanner.innerHTML =
+          `<strong>Unable to load JSON data:</strong> ${escapeHtml(err.message)}. ` +
+          `Start the local server via <code>python -m src.main --serve-ui</code> and open ` +
+          `<code>http://127.0.0.1:8080/ui/index.html</code>.`;
+      }
+    }
+
+    function renderHeader() {
+      const { roster, recommendations } = state;
+      if (!roster || !recommendations) return;
+      document.getElementById("ulBadge").textContent = `UL ${roster.union_level}`;
+      document.getElementById("subHeader").textContent =
+        `Last Roster Update: ${roster.last_updated} · Strategist Generated: ${recommendations.generated_at}`;
+      document.getElementById("alertCountPill").textContent = `${recommendations.alerts.length} Alerts`;
+      document.getElementById("swapCountPill").textContent = `${recommendations.swap_recommendations.length} Upgrades`;
+    }
+
+    function renderResonatorCard(res, isPrimary) {
+      const recs = state.recommendations;
+      const evalInfo = recs?.character_evaluations?.[res.name];
+      const targetCfg = state.profile?.character_targets?.[res.name] || {};
+      const forbiddenSets = new Set(targetCfg.forbidden_sonata_sets || []);
+      const acceptableSets = new Set(
+        targetCfg.acceptable_sonata_sets || (targetCfg.target_sonata_set ? [targetCfg.target_sonata_set] : [])
+      );
+      const minEr = targetCfg.min_energy_regen || 100;
+      const erOk = res.stats.energy_regen >= minEr;
+
+      const forteCap = state.profile?.account?.forte_skill_cap || 8;
+      const forteItems = [
+        ["Basic Attack", res.forte.basic_attack],
+        ["Res. Skill", res.forte.resonance_skill],
+        ["Forte Circuit", res.forte.forte_circuit],
+        ["Res. Liberation", res.forte.resonance_liberation],
+        ["Intro Skill", res.forte.intro_skill]
+      ];
+
+      const echoesHtml = (res.equipped_echoes || []).length
+        ? res.equipped_echoes.map((echo) => {
+            const wrongSet = forbiddenSets.has(echo.sonata_set) ||
+              (acceptableSets.size > 0 && !acceptableSets.has(echo.sonata_set));
+            const badge = cvBadgeClass(echo.crit_value || 0, wrongSet);
+            return `
+              <div class="echo-item ${wrongSet ? "wrong-set" : ""}">
+                <div>
+                  <strong>Slot ${echo.slot}: ${escapeHtml(echo.name)}</strong>
+                  <div style="color: var(--muted); font-size:0.74rem;">
+                    ${escapeHtml(echo.sonata_set)} · Cost ${echo.cost} · +${echo.level} · ${escapeHtml(formatStatName(echo.main_stat.stat))}
+                    ${wrongSet ? `<span style="color:var(--red); font-weight:700;"> (Mismatched Set!)</span>` : ""}
+                  </div>
+                </div>
+                <span class="pill ${badge}">${Number(echo.crit_value || 0).toFixed(1)} CV</span>
+              </div>`;
+          }).join("")
+        : `<div style="color:var(--muted); font-size:0.82rem;">No Echo details scanned for this Resonator yet.</div>`;
+
+      const nextNodeHtml = evalInfo?.next_forte_step
+        ? `<div class="next-node-banner"><strong>Next Priority Node:</strong> ${escapeHtml(evalInfo.next_forte_step)}</div>`
+        : "";
+
+      return `
+        <article class="card ${isPrimary ? "primary-core" : ""}">
+          <div class="char-header">
+            <div>
+              <h3 class="char-name">${escapeHtml(res.name)}</h3>
+              <div class="char-sub">
+                ${escapeHtml(res.element)} · Lv. ${res.level}/${res.level_cap} · S${res.sequence} ·
+                <strong>${escapeHtml(res.weapon.name)}</strong> (Lv.${res.weapon.level} R${res.weapon.rank})
+              </div>
+            </div>
+            <span class="pill ${erOk ? "green" : "red"}">ER ${res.stats.energy_regen.toFixed(1)}%</span>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="stat-label">ATK</div><div class="stat-val">${Math.round(res.stats.atk)}</div></div>
+            <div class="stat-box"><div class="stat-label">Crit Rate</div><div class="stat-val">${res.stats.crit_rate.toFixed(1)}%</div></div>
+            <div class="stat-box"><div class="stat-label">Crit DMG</div><div class="stat-val">${res.stats.crit_dmg.toFixed(1)}%</div></div>
+            <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">${Math.round(res.stats.hp)}</div></div>
+            <div class="stat-box"><div class="stat-label">DEF</div><div class="stat-val">${Math.round(res.stats.def)}</div></div>
+            <div class="stat-box"><div class="stat-label">Elem DMG</div><div class="stat-val">${res.stats.element_dmg_bonus.toFixed(1)}%</div></div>
+          </div>
+
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); margin-bottom:6px; display:flex; justify-content:space-between;">
+              <span>Forte Progress (UL Cap Lv.${forteCap})</span>
+              <span>Inherent 1: ${res.forte.inherent_skill_1 ? "✓" : "Locked"} · 2: ${res.forte.inherent_skill_2 ? "✓" : "Locked"}</span>
+            </div>
+            <div class="forte-list">
+              ${forteItems.map(([label, lvl]) => `
+                <div class="forte-row">
+                  <span>${label}</span>
+                  <div class="progress-track"><div class="progress-fill" style="width:${Math.min(100, (lvl / forteCap) * 100)}%"></div></div>
+                  <span style="text-align:right;">Lv.${lvl}/${forteCap}</span>
+                </div>`).join("")}
+            </div>
+          </div>
+
+          ${nextNodeHtml}
+
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); margin-bottom:6px;">
+              Equipped Echoes ${evalInfo ? `· Total ${evalInfo.total_echo_cv.toFixed(1)} CV` : ""}
+            </div>
+            <div class="echo-list">${echoesHtml}</div>
+          </div>
+        </article>`;
+    }
+
+    function renderRosterTab() {
+      const primarySet = new Set(state.recommendations?.primary_team || ["Cartethyia", "Rover (Havoc)", "Jianxin"]);
+      const active = [];
+      const benched = [];
+      for (const res of state.roster.resonators) {
+        if (primarySet.has(res.name)) active.push(res);
+        else benched.push(res);
+      }
+      document.getElementById("activeTeamGrid").innerHTML = active.map((r) => renderResonatorCard(r, true)).join("");
+      document.getElementById("benchedGrid").innerHTML = benched.map((r) => renderResonatorCard(r, false)).join("");
+    }
+
+    function populateBagFilters() {
+      const echoes = state.echoBag.echoes || [];
+      const sets = [...new Set(echoes.map((e) => e.sonata_set))].sort();
+      const mains = [...new Set(echoes.map((e) => e.main_stat.stat))].sort();
+
+      const sonataSel = document.getElementById("filterSonata");
+      const currentSonata = sonataSel.value;
+      sonataSel.innerHTML = `<option value="">All Sonata Sets</option>` +
+        sets.map((s) => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join("");
+      sonataSel.value = currentSonata;
+
+      const mainSel = document.getElementById("filterMainStat");
+      const currentMain = mainSel.value;
+      mainSel.innerHTML = `<option value="">All Main Stats</option>` +
+        mains.map((m) => `<option value="${escapeHtml(m)}">${escapeHtml(formatStatName(m))}</option>`).join("");
+      mainSel.value = currentMain;
+    }
+
+    function renderBagTab() {
+      const echoes = state.echoBag.echoes || [];
+      const swapsById = new Map();
+      for (const swap of state.recommendations?.swap_recommendations || []) {
+        const id = swap.recommended_echo.echo_id;
+        if (!swapsById.has(id)) swapsById.set(id, []);
+        swapsById.get(id).push(swap);
+      }
+
+      const sonataFilter = document.getElementById("filterSonata").value;
+      const costFilter = document.getElementById("filterCost").value;
+      const mainFilter = document.getElementById("filterMainStat").value;
+      const minCv = parseFloat(document.getElementById("filterMinCv").value || "0") || 0;
+      const onlyUpgrades = document.getElementById("filterOnlyUpgrades").checked;
+
+      const filtered = echoes.filter((e) => {
+        if (sonataFilter && e.sonata_set !== sonataFilter) return false;
+        if (costFilter && String(e.cost) !== costFilter) return false;
+        if (mainFilter && e.main_stat.stat !== mainFilter) return false;
+        if ((e.crit_value || 0) < minCv) return false;
+        if (onlyUpgrades && !swapsById.has(e.echo_id)) return false;
+        return true;
+      });
+
+      const tbody = document.getElementById("bagTableBody");
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="7" style="color:var(--muted); text-align:center;">No Echoes match the current filters.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((e) => {
+        const swaps = swapsById.get(e.echo_id) || [];
+        const badge = cvBadgeClass(e.crit_value || 0, false);
+        const subsHtml = (e.substats || []).map((s) =>
+          `<span class="chip">${escapeHtml(formatStatName(s.stat))} ${escapeHtml(formatStatValue(s.stat, s.value))}</span>`
+        ).join("");
+        const statusHtml = e.equipped_by
+          ? `<span class="pill">Equipped by ${escapeHtml(e.equipped_by)}</span>`
+          : swaps.length
+            ? swaps.map((s) =>
+                `<div style="margin-bottom:4px;"><span class="pill green">Upgrade Available for ${escapeHtml(s.character)} Slot ${s.slot}</span><div style="font-size:0.74rem; color:var(--muted); margin-top:2px;">${escapeHtml(s.reason)}</div></div>`
+              ).join("")
+            : `<span style="color:var(--muted);">Unequipped</span>`;
+
+        return `
+          <tr>
+            <td><strong>${escapeHtml(e.name)}</strong><div style="color:var(--muted); font-size:0.74rem;">ID: ${escapeHtml(e.echo_id)}</div></td>
+            <td>${escapeHtml(e.sonata_set)}</td>
+            <td>Cost ${e.cost} · +${e.level}</td>
+            <td>${escapeHtml(formatStatName(e.main_stat.stat))} (${escapeHtml(formatStatValue(e.main_stat.stat, e.main_stat.value))})</td>
+            <td><div class="substat-chips">${subsHtml || '<span style="color:var(--muted);">None (+0)</span>'}</div></td>
+            <td><span class="pill ${badge}">${Number(e.crit_value || 0).toFixed(1)}</span></td>
+            <td>${statusHtml}</td>
+          </tr>`;
+      }).join("");
+    }
+
+    function renderStrategyTab() {
+      const recs = state.recommendations;
+      if (!recs) return;
+
+      const taskBox = document.getElementById("strategyTaskContent");
+      if (state.strategyView === "waveplates") {
+        const wp = recs.waveplate_plan;
+        taskBox.innerHTML = `
+          <h3 style="margin:0 0 8px;">Daily ${wp.daily_waveplates} Waveplate Plan</h3>
+          <p style="margin:0 0 12px;"><span class="pill accent">${escapeHtml(wp.primary_focus)}</span></p>
+          <p style="color:var(--muted); font-size:0.88rem; margin:0 0 12px;">${escapeHtml(wp.reasoning)}</p>
+          ${wp.allocations.map((a) => `
+            <div class="echo-item" style="margin-bottom:8px;">
+              <div>
+                <strong>${escapeHtml(a.activity)}</strong>
+                <div style="font-size:0.78rem; color:var(--muted);">${escapeHtml(a.target)} — ${escapeHtml(a.detail)}</div>
+              </div>
+              <span class="pill gold">${a.runs}x (${a.waveplates} WP)</span>
+            </div>`).join("")}
+          <h4 style="margin:14px 0 8px;">Forte Roadmap Checklist</h4>
+          ${recs.forte_priorities.map((f) => `
+            <div class="echo-item" style="margin-bottom:6px;">
+              <div>
+                <strong>${escapeHtml(f.character)} · Step ${f.step}: ${escapeHtml(f.description)}</strong>
+                <div style="font-size:0.76rem; color:var(--muted);">${escapeHtml(f.current_status)}</div>
+              </div>
+              <span class="pill ${f.completed ? "green" : "amber"}">${f.completed ? "Done" : "Pending"}</span>
+            </div>`).join("")}`;
+      } else if (state.strategyView === "cleanup") {
+        const cl = recs.echo_cleanup;
+        taskBox.innerHTML = `
+          <h3 style="margin:0 0 8px;">Echo Bag Cleanup (${cl.candidate_count} Candidates)</h3>
+          <p style="color:var(--muted); font-size:0.86rem;">Safe Data Merge / Echo XP candidates that are neither equipped nor recommended upgrades:</p>
+          ${cl.candidates.length ? cl.candidates.map((c) => `
+            <div class="echo-item" style="margin-bottom:8px;">
+              <div>
+                <strong>${escapeHtml(c.name)}</strong> (${escapeHtml(c.sonata_set)} · Cost ${c.cost} · +${c.level})
+                <div style="font-size:0.76rem; color:var(--muted);">${escapeHtml(c.reason)}</div>
+              </div>
+              <span class="pill red">${c.crit_value.toFixed(1)} CV</span>
+            </div>`).join("") : `<p style="color:var(--muted);">No cleanup candidates detected.</p>`}`;
+      } else {
+        const t2 = recs.team2_builder;
+        taskBox.innerHTML = `
+          <h3 style="margin:0 0 8px;">Endgame Team 2 Builder (ToA / Endstate Matrix)</h3>
+          <p><span class="pill purple">${escapeHtml(t2.archetype_name)}</span></p>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
+            ${t2.members.map((m) => `
+              <div class="echo-item">
+                <strong>${escapeHtml(m.name)}</strong>
+                <span class="pill accent">${escapeHtml(m.role)}</span>
+              </div>`).join("")}
+          </div>
+          <p style="font-size:0.86rem; margin:0 0 8px;"><strong>Synergy:</strong> ${escapeHtml(t2.synergy_notes)}</p>
+          <p style="font-size:0.84rem; color:var(--green); margin:0;"><strong>Comfort Check:</strong> ${escapeHtml(t2.avoided_bottlenecks)}</p>`;
+      }
+
+      document.getElementById("alertsList").innerHTML = recs.alerts.length
+        ? recs.alerts.map((a) => `
+            <div class="alert-item ${escapeHtml(a.severity)}">
+              <strong>[${escapeHtml(a.severity.toUpperCase())}] ${escapeHtml(a.character)}</strong> — ${escapeHtml(a.message)}
+            </div>`).join("")
+        : `<p style="color:var(--muted); font-size:0.85rem;">No build alerts.</p>`;
+
+      document.getElementById("swapsQueue").innerHTML = recs.swap_recommendations.length
+        ? recs.swap_recommendations.map((s) => `
+            <div class="echo-item" style="margin-bottom:6px;">
+              <div>
+                <strong>${escapeHtml(s.character)} Slot ${s.slot}: Equip ${escapeHtml(s.recommended_echo.name)}</strong>
+                <div style="font-size:0.76rem; color:var(--muted);">${escapeHtml(s.reason)}</div>
+              </div>
+              <span class="pill green">${s.cv_gain >= 0 ? "+" : ""}${s.cv_gain.toFixed(1)} CV</span>
+            </div>`).join("")
+        : `<p style="color:var(--muted); font-size:0.85rem;">No bag swaps currently beat equipped slots.</p>`;
+    }
+
+    function renderAll() {
+      renderHeader();
+      renderRosterTab();
+      populateBagFilters();
+      renderBagTab();
+      renderStrategyTab();
+    }
+
+    async function copyContextForChat() {
+      if (!state.recommendations) return;
+      const r = state.recommendations;
+      const summary = [
+        `# wuwa-buddy-assist Account Context (UL ${r.union_level})`,
+        `Primary Team: ${r.primary_team.join(" + ")}`,
+        `Waveplate Focus: ${r.waveplate_plan.primary_focus}`,
+        ``,
+        `## Active Alerts (${r.alerts.length})`,
+        ...r.alerts.map((a) => `- [${a.severity}] ${a.character}: ${a.message}`),
+        ``,
+        `## Top Echo Swap Recommendations (${r.swap_recommendations.length})`,
+        ...r.swap_recommendations.slice(0, 6).map(
+          (s) => `- ${s.character} Slot ${s.slot} -> ${s.recommended_echo.name} (${s.recommended_echo.sonata_set}, ${s.recommended_echo.crit_value} CV): ${s.reason}`
+        ),
+        ``,
+        `## Next Forte Priorities`,
+        ...r.forte_priorities.filter((f) => !f.completed).slice(0, 5).map(
+          (f) => `- ${f.character} Step ${f.step}: ${f.description} (${f.current_status})`
+        )
+      ].join("\n");
+
+      const btn = document.getElementById("copyChatBtn");
+      try {
+        await navigator.clipboard.writeText(summary);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = summary;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      const prev = btn.textContent;
+      btn.textContent = "Copied Context!";
+      setTimeout(() => { btn.textContent = prev; }, 1800);
+    }
+
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById(btn.dataset.tab).classList.add("active");
+      });
+    });
+
+    document.querySelectorAll(".task-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".task-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.strategyView = btn.dataset.strategy;
+        renderStrategyTab();
+      });
+    });
+
+    ["filterSonata", "filterCost", "filterMainStat", "filterMinCv", "filterOnlyUpgrades"].forEach((id) => {
+      document.getElementById(id).addEventListener("input", renderBagTab);
+      document.getElementById(id).addEventListener("change", renderBagTab);
+    });
+
+    document.getElementById("refreshBtn").addEventListener("click", loadAllData);
+    document.getElementById("copyChatBtn").addEventListener("click", copyContextForChat);
+
+    loadAllData();
+  </script>
+</body>
+</html>
